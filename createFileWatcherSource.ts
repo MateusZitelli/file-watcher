@@ -49,15 +49,16 @@ export const createFileWatcherSource = path => (start, sink) => {
   watcher = fs.watch(path, (event, filename) => {
     // Continue if filename is available and sink is subscribed
     if (filename && !ended) {
-      // Keep a copy of new files
       if (event === "rename") {
         try {
-          // If the file exists the file was renamed
           if (fs.existsSync(`${path}/${filename}`)) {
+            // If the file exists the file was renamed
+            // Let's make a copy of the new file to keep track of it
             fs.copyFileSync(`${path}/${filename}`, `${TMP_FOLDER}/${filename}`);
+
             sink(1, { event: "rename", filename });
-            // If the file does not exist it was removed
           } else {
+            // If the file does not exist it was removed
             sink(1, { event: "delete", filename });
           }
         } catch (e) {

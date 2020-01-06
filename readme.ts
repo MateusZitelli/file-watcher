@@ -100,7 +100,6 @@ pipe(
   })),
   // Take the first 10 events
   take(10),
-
   // Log
   observe(({event, filename, timestamp, diff}) => {
     console.log(`filename: ${filename}`)
