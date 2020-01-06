@@ -5,21 +5,21 @@ export const take = total => source => (start, sink) => {
   let originalTalkback;
   let end;
 
-  function talkback(t, d) {
-    if (t === 2) {
+  function talkback(status, payload) {
+    if (status === 2) {
       end = true;
-      originalTalkback(t, d);
-    } else if (taken < total) originalTalkback(t, d);
+      originalTalkback(status, payload);
+    } else if (taken < total) originalTalkback(status, payload);
   }
 
-  source(0, (t, d) => {
-    if (t === 0) {
-      originalTalkback = d;
+  source(0, (status, payload) => {
+    if (status === 0) {
+      originalTalkback = payload;
       sink(0, talkback);
-    } else if (t === 1) {
+    } else if (status === 1) {
       if (taken < total) {
         taken++;
-        sink(t, d);
+        sink(status, payload);
         if (taken === total && !end) {
           end = true;
           sink(2);
@@ -27,7 +27,7 @@ export const take = total => source => (start, sink) => {
         }
       }
     } else {
-      sink(t, d);
+      sink(status, payload);
     }
   });
 };
