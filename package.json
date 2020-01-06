@@ -1,0 +1,16 @@
+{
+  "name": "file-watcher",
+  "version": "0.0.1",
+  "description": "",
+  "main": "readme.ts",
+  "scripts": {
+    "start": "ts-node readme.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^13.1.4",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.4"
+  }
+}
